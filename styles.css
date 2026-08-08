@@ -319,8 +319,8 @@ button { cursor: pointer; }
   margin: 0;
   font-size: clamp(3rem, 10vw, 9rem);
   font-weight: 820;
-  letter-spacing: -.08em;
-  line-height: .86;
+  letter-spacing: -.035em;
+  line-height: .98;
   overflow-wrap: normal;
   word-break: keep-all;
 }

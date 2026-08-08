@@ -1,13 +1,49 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-profile="expressive">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="refresh" content="0; url=/lnk-lumen/" />
-    <title>Lnk Lumen</title>
-    <script>location.replace('/lnk-lumen/');</script>
+    <meta name="theme-color" content="#0a0a0d" />
+    <meta name="description" content="ZHUOLIN — a personal signal." />
+    <title>ZHUOLIN</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <p>页面已迁移至 <a href="/lnk-lumen/">Lnk Lumen</a>。</p>
+    <main class="stage" id="stage">
+      <div class="stage__grain" aria-hidden="true"></div>
+      <div class="stage__flare" aria-hidden="true"></div>
+
+      <header class="masthead">
+        <a class="avatar" href="#contact" aria-label="查看联系方式"><img src="assets/zhuolin-avatar.jpg" alt="ZHUOLIN" /></a>
+        <button class="language-switch" type="button" aria-pressed="false">
+          <span aria-hidden="true">中</span>
+          <span class="sr-only" data-i18n="languageAction">切换到英文</span>
+        </button>
+      </header>
+
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <h1 class="hero__name" id="hero-title" aria-label="ZHUOLIN">
+          <span aria-hidden="true">Z</span><span aria-hidden="true">H</span><span aria-hidden="true">U</span><span aria-hidden="true">O</span><span aria-hidden="true">L</span><span aria-hidden="true">I</span><span aria-hidden="true">N</span>
+        </h1>
+        <p class="hero__statement" data-i18n="statement">让想法有地方生长。</p>
+      </section>
+
+      <footer class="stage__footer"></footer>
+    </main>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <p class="contact__eyebrow" data-i18n="contactEyebrow">保持联络 · 01</p>
+      <h2 id="contact-title" data-i18n="contactTitle">在别处，继续发生。</h2>
+      <ul class="contact__list">
+        <li><a href="/lnk-lumen/"><span data-i18n="lnkLumen">项目 · Lnk Lumen</span><span>Lnk Lumen ↗</span></a></li>
+        <li><a href="https://github.com/ZHUOLIN0928" target="_blank" rel="noreferrer"><span>GitHub</span><span>ZHUOLIN0928 ↗</span></a></li>
+        <li><a href="https://x.com/ZHUOLIN0000" target="_blank" rel="noreferrer"><span>X</span><span>ZHUOLIN0000 ↗</span></a></li>
+        <li><a href="https://www.reddit.com/user/ZHUOLIN-CN/" target="_blank" rel="noreferrer"><span>Reddit</span><span>ZHUOLIN-CN ↗</span></a></li>
+        <li><a href="mailto:infpro0928@gmail.com"><span data-i18n="email">邮箱</span><span>infpro0928@gmail.com ↗</span></a></li>
+      </ul>
+    </section>
+
+    <p class="sr-only" id="stage-status" aria-live="polite"></p>
+    <script src="script.js"></script>
   </body>
 </html>

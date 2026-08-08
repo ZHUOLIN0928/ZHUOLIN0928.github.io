@@ -321,7 +321,11 @@ button { cursor: pointer; }
   font-weight: 820;
   letter-spacing: -.08em;
   line-height: .86;
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
+
+.contact h2 span { display: block; white-space: nowrap; }
 
 .contact__list {
   display: grid;

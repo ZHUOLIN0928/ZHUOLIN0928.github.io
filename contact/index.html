@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN" data-profile="expressive">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0a0d" />
+    <meta name="description" content="ZHUOLIN 的联系方式。" />
+    <title>联系 · ZHUOLIN</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="site-page">
+    <main class="page" id="page">
+      <header class="masthead page__masthead">
+        <a class="avatar" href="../" aria-label="返回 ZHUOLIN 主页"><img src="../assets/zhuolin-avatar.jpg" alt="ZHUOLIN" /></a>
+        <nav class="masthead__nav" aria-label="主要页面">
+          <a href="../" data-i18n="pageBack">首页</a>
+          <a href="../projects/" data-i18n="navProjects">项目</a>
+          <a class="is-current" href="./" aria-current="page" data-i18n="navContact">联系</a>
+        </nav>
+        <button class="language-switch" type="button" aria-pressed="false">
+          <span aria-hidden="true">中</span>
+          <span class="sr-only" data-i18n="languageAction">切换到英文</span>
+        </button>
+      </header>
+
+      <section class="page__intro contact-intro" aria-labelledby="contact-title">
+        <p class="page__eyebrow" data-i18n="contactEyebrow">联系方式 · 01</p>
+        <h1 id="contact-title" data-i18n="contactTitle">在别处找到我。</h1>
+        <p class="page__lead" data-i18n="contactLead">项目讨论、使用反馈和合作来信，都可以从这里开始。</p>
+      </section>
+
+      <section class="contact-panel" aria-label="联系方式列表">
+        <a class="contact-panel__link" href="../"><span data-i18n="contactPersonal">个人主页</span><span>ZHUOLIN</span></a>
+        <a class="contact-panel__link" href="https://github.com/ZHUOLIN0928" target="_blank" rel="noreferrer"><span data-i18n="contactGithub">GitHub</span><span>ZHUOLIN0928 ↗</span></a>
+        <a class="contact-panel__link" href="https://x.com/ZHUOLIN0000" target="_blank" rel="noreferrer"><span data-i18n="contactX">X / Twitter</span><span>@ZHUOLIN0000 ↗</span></a>
+        <a class="contact-panel__link" href="https://www.reddit.com/user/ZHUOLIN-CN/" target="_blank" rel="noreferrer"><span data-i18n="contactReddit">Reddit</span><span>u/ZHUOLIN-CN ↗</span></a>
+        <a class="contact-panel__link" href="mailto:infpro0928@gmail.com"><span data-i18n="contactEmail">邮箱</span><span>infpro0928@gmail.com ↗</span></a>
+        <p class="contact-panel__note" data-i18n="contactNote">外部链接会在新标签页打开。</p>
+      </section>
+    </main>
+    <p class="sr-only" id="stage-status" aria-live="polite"></p>
+    <script src="../script.js"></script>
+  </body>
+</html>

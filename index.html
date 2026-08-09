@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0a0a0d" />
-    <meta name="description" content="ZHUOLIN — a personal signal." />
+    <meta name="description" content="ZHUOLIN 的个人主页与项目索引。" />
     <title>ZHUOLIN</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -14,7 +14,11 @@
       <div class="stage__flare" aria-hidden="true"></div>
 
       <header class="masthead">
-        <a class="avatar" href="#contact" aria-label="查看联系方式"><img src="assets/zhuolin-avatar.jpg" alt="ZHUOLIN" /></a>
+        <a class="avatar" href="#top" aria-label="返回页面开头"><img src="assets/zhuolin-avatar.jpg" alt="ZHUOLIN" /></a>
+        <nav class="masthead__nav" aria-label="主要页面">
+          <a href="projects/" data-i18n="navProjects">项目</a>
+          <a href="contact/" data-i18n="navContact">联系</a>
+        </nav>
         <button class="language-switch" type="button" aria-pressed="false">
           <span aria-hidden="true">中</span>
           <span class="sr-only" data-i18n="languageAction">切换到英文</span>
@@ -25,23 +29,18 @@
         <h1 class="hero__name" id="hero-title" aria-label="ZHUOLIN">
           <span aria-hidden="true">Z</span><span aria-hidden="true">H</span><span aria-hidden="true">U</span><span aria-hidden="true">O</span><span aria-hidden="true">L</span><span aria-hidden="true">I</span><span aria-hidden="true">N</span>
         </h1>
-        <p class="hero__statement" data-i18n="statement">让想法有地方生长。</p>
+        <p class="hero__statement" data-i18n="statement">个人项目、工具与正在推进的实验。</p>
+        <div class="hero__actions">
+          <a class="hero__link" href="projects/" data-i18n="viewProjects">查看项目</a>
+          <a class="hero__link hero__link--quiet" href="contact/" data-i18n="getInTouch">联系</a>
+        </div>
       </section>
 
-      <footer class="stage__footer"></footer>
+      <footer class="stage__footer">
+        <p data-i18n="footerNote">个人主页 · 项目索引</p>
+        <p aria-hidden="true">2026</p>
+      </footer>
     </main>
-
-    <section class="contact" id="contact" aria-labelledby="contact-title">
-      <p class="contact__eyebrow" data-i18n="contactEyebrow">保持联络 · 01</p>
-      <h2 id="contact-title"><span data-i18n="contactTitleLineOne">在别处，</span><span data-i18n="contactTitleLineTwo">继续发生。</span></h2>
-      <ul class="contact__list">
-        <li><a href="/lnk-lumen/"><span data-i18n="lnkLumen">项目 · Lnk Lumen</span><span>Lnk Lumen ↗</span></a></li>
-        <li><a href="https://github.com/ZHUOLIN0928" target="_blank" rel="noreferrer"><span>GitHub</span><span>ZHUOLIN0928 ↗</span></a></li>
-        <li><a href="https://x.com/ZHUOLIN0000" target="_blank" rel="noreferrer"><span>X</span><span>ZHUOLIN0000 ↗</span></a></li>
-        <li><a href="https://www.reddit.com/user/ZHUOLIN-CN/" target="_blank" rel="noreferrer"><span>Reddit</span><span>ZHUOLIN-CN ↗</span></a></li>
-        <li><a href="mailto:infpro0928@gmail.com"><span data-i18n="email">邮箱</span><span>infpro0928@gmail.com ↗</span></a></li>
-      </ul>
-    </section>
 
     <p class="sr-only" id="stage-status" aria-live="polite"></p>
     <script src="script.js"></script>

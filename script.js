@@ -4,26 +4,66 @@ const status = document.querySelector('#stage-status');
 
 const copy = {
   zh: {
-    statement: '让想法有地方生长。',
+    statement: '个人项目、工具与正在推进的实验。',
     languageAction: '切换到英文',
     switched: '已切换至中文',
     pressed: '光线已响应',
-    contactEyebrow: '保持联络 · 01',
-    contactTitleLineOne: '在别处，',
-    contactTitleLineTwo: '继续发生。',
-    lnkLumen: '项目 · Lnk Lumen',
-    email: '邮箱',
+    navProjects: '项目',
+    navContact: '联系',
+    viewProjects: '查看项目',
+    getInTouch: '联系',
+    footerNote: '个人主页 · 项目索引',
+    pageBack: '首页',
+    projectsEyebrow: '项目索引 · 03',
+    projectsTitle: '正在做的东西。',
+    projectsLead: '每个项目单独说明用途、边界和当前形式。',
+    projectLnkType: '桌面学习工具',
+    projectLnkDescription: '面向古诗文背诵的桌面工具：围绕主动回忆、复习排程和学习计划组织练习。',
+    projectSmartType: 'Chromium 扩展',
+    projectSmartDescription: '将当前 AI 对话导出为 Markdown、纯文本或 JSON。文件在浏览器本地生成，不经过自建上传或分析服务。',
+    projectViliType: 'Chrome 扩展',
+    projectViliDescription: '为哔哩哔哩视频页提供下载控制面板；媒体获取、音视频合并和 MP3 转换均在本机浏览器中完成。',
+    openProject: '打开项目',
+    contactEyebrow: '联系方式 · 01',
+    contactTitle: '在别处找到我。',
+    contactLead: '项目讨论、使用反馈和合作来信，都可以从这里开始。',
+    contactPersonal: '个人主页',
+    contactGithub: 'GitHub',
+    contactX: 'X / Twitter',
+    contactReddit: 'Reddit',
+    contactEmail: '邮箱',
+    contactNote: '外部链接会在新标签页打开。',
   },
   en: {
-    statement: 'MAKE ROOM FOR IDEAS.',
+    statement: 'PERSONAL PROJECTS, TOOLS, AND WORK IN PROGRESS.',
     languageAction: 'Switch to Chinese',
     switched: 'Language switched to English',
     pressed: 'Light responded',
-    contactEyebrow: 'STAY IN TOUCH · 01',
-    contactTitleLineOne: 'KEEP GOING,',
-    contactTitleLineTwo: 'ELSEWHERE.',
-    lnkLumen: 'PROJECT · Lnk Lumen',
-    email: 'EMAIL',
+    navProjects: 'PROJECTS',
+    navContact: 'CONTACT',
+    viewProjects: 'VIEW PROJECTS',
+    getInTouch: 'CONTACT',
+    footerNote: 'PERSONAL SITE · PROJECT INDEX',
+    pageBack: 'HOME',
+    projectsEyebrow: 'PROJECT INDEX · 03',
+    projectsTitle: 'THINGS IN PROGRESS.',
+    projectsLead: 'Each project states its purpose, boundaries, and current form.',
+    projectLnkType: 'DESKTOP LEARNING TOOL',
+    projectLnkDescription: 'A desktop tool for classical Chinese memorisation, organised around retrieval practice, review scheduling, and study plans.',
+    projectSmartType: 'CHROMIUM EXTENSION',
+    projectSmartDescription: 'Exports the current AI conversation as Markdown, plain text, or JSON. Files are produced locally in the browser without a separate upload or analytics service.',
+    projectViliType: 'CHROME EXTENSION',
+    projectViliDescription: 'Adds download controls to Bilibili pages. Media retrieval, merging, and MP3 conversion run locally in the browser.',
+    openProject: 'OPEN PROJECT',
+    contactEyebrow: 'CONTACT · 01',
+    contactTitle: 'FIND ME ELSEWHERE.',
+    contactLead: 'Project discussion, feedback, and collaboration can start here.',
+    contactPersonal: 'PERSONAL SITE',
+    contactGithub: 'GITHUB',
+    contactX: 'X / TWITTER',
+    contactReddit: 'REDDIT',
+    contactEmail: 'EMAIL',
+    contactNote: 'External links open in a new tab.',
   },
 };
 
@@ -80,23 +120,25 @@ function switchLanguage() {
   status.textContent = copy[language].switched;
 }
 
-stage.addEventListener('pointermove', setPointerLight, { passive: true });
-stage.addEventListener('pointerdown', pressStage);
-languageSwitch.addEventListener('click', switchLanguage);
+if (stage) {
+  stage.addEventListener('pointermove', setPointerLight, { passive: true });
+  stage.addEventListener('pointerdown', pressStage);
+  stage.addEventListener('animationend', (event) => {
+    if (event.animationName === 'press-bloom') {
+      stage.classList.remove('stage--pressed');
+    }
 
-stage.addEventListener('animationend', (event) => {
-  if (event.animationName === 'press-bloom') {
-    stage.classList.remove('stage--pressed');
-  }
+    if (event.animationName === 'letter-arrival' && event.target === document.querySelector('.hero__name span:last-child')) {
+      stage.classList.add('stage--ready');
+    }
+  });
+}
 
-  if (event.animationName === 'letter-arrival' && event.target === document.querySelector('.hero__name span:last-child')) {
-    stage.classList.add('stage--ready');
-  }
-});
+languageSwitch?.addEventListener('click', switchLanguage);
 
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
-    stage.classList.remove('stage--pressed');
+    stage?.classList.remove('stage--pressed');
     window.cancelAnimationFrame(lightFrame);
     lightFrame = undefined;
   }

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN" data-profile="expressive">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0a0d" />
+    <meta name="description" content="ZHUOLIN 的项目索引。" />
+    <title>项目 · ZHUOLIN</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="site-page">
+    <main class="page" id="page">
+      <header class="masthead page__masthead">
+        <a class="avatar" href="../" aria-label="返回 ZHUOLIN 主页"><img src="../assets/zhuolin-avatar.jpg" alt="ZHUOLIN" /></a>
+        <nav class="masthead__nav" aria-label="主要页面">
+          <a href="../" data-i18n="pageBack">首页</a>
+          <a class="is-current" href="./" aria-current="page" data-i18n="navProjects">项目</a>
+          <a href="../contact/" data-i18n="navContact">联系</a>
+        </nav>
+        <button class="language-switch" type="button" aria-pressed="false">
+          <span aria-hidden="true">中</span>
+          <span class="sr-only" data-i18n="languageAction">切换到英文</span>
+        </button>
+      </header>
+
+      <section class="page__intro" aria-labelledby="projects-title">
+        <p class="page__eyebrow" data-i18n="projectsEyebrow">项目索引 · 03</p>
+        <h1 id="projects-title" data-i18n="projectsTitle">正在做的东西。</h1>
+        <p class="page__lead" data-i18n="projectsLead">每个项目单独说明用途、边界和当前形式。</p>
+      </section>
+
+      <section class="projects" aria-label="项目列表">
+        <article class="project-card project-card--lumen">
+          <p class="project-card__number">01</p>
+          <div class="project-card__copy">
+            <p class="project-card__type" data-i18n="projectLnkType">桌面学习工具</p>
+            <h2>Lnk Lumen</h2>
+            <p data-i18n="projectLnkDescription">面向古诗文背诵的桌面工具：围绕主动回忆、复习排程和学习计划组织练习。</p>
+          </div>
+          <a class="project-card__link" href="/lnk-lumen/" data-i18n="openProject">打开项目</a>
+        </article>
+
+        <article class="project-card">
+          <p class="project-card__number">02</p>
+          <div class="project-card__copy">
+            <p class="project-card__type" data-i18n="projectSmartType">Chromium 扩展</p>
+            <h2>Smart Export</h2>
+            <p data-i18n="projectSmartDescription">将当前 AI 对话导出为 Markdown、纯文本或 JSON。文件在浏览器本地生成，不经过自建上传或分析服务。</p>
+          </div>
+          <a class="project-card__link" href="https://github.com/ZHUOLIN0928/Smart-Export" target="_blank" rel="noreferrer" data-i18n="openProject">打开项目</a>
+        </article>
+
+        <article class="project-card">
+          <p class="project-card__number">03</p>
+          <div class="project-card__copy">
+            <p class="project-card__type" data-i18n="projectViliType">Chrome 扩展</p>
+            <h2>ViliDili</h2>
+            <p data-i18n="projectViliDescription">为哔哩哔哩视频页提供下载控制面板；媒体获取、音视频合并和 MP3 转换均在本机浏览器中完成。</p>
+          </div>
+          <a class="project-card__link" href="https://github.com/ZHUOLIN0928/ViliDili" target="_blank" rel="noreferrer" data-i18n="openProject">打开项目</a>
+        </article>
+      </section>
+    </main>
+    <p class="sr-only" id="stage-status" aria-live="polite"></p>
+    <script src="../script.js"></script>
+  </body>
+</html>

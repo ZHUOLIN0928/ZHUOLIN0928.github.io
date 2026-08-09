@@ -1,6 +1,9 @@
 const stage = document.querySelector('#stage');
+const page = document.querySelector('#page');
+const motionSurface = stage || page;
 const languageSwitch = document.querySelector('.language-switch');
 const status = document.querySelector('#stage-status');
+const languageStorageKey = 'zhuolin-landing-language';
 
 const copy = {
   zh: {
@@ -13,6 +16,14 @@ const copy = {
     viewProjects: '查看项目',
     getInTouch: '联系',
     footerNote: '个人主页 · 项目索引',
+    scrollToProjects: '向下查看项目',
+    flowEyebrow: '项目目录',
+    flowTitle: '向下看，是我正在做的项目。',
+    flowLead: '学习工具、对话归档工具和浏览器内的媒体工具，各自独立，也都还在继续完善。',
+    flowLnk: '古诗文学习与复习排程',
+    flowSmart: '将 AI 对话导出为本地文件',
+    flowVili: '浏览器内的媒体下载工具',
+    viewAllProjects: '查看全部项目',
     pageBack: '首页',
     projectsEyebrow: '项目索引 · 03',
     projectsTitle: '正在做的东西。',
@@ -44,6 +55,14 @@ const copy = {
     viewProjects: 'VIEW PROJECTS',
     getInTouch: 'CONTACT',
     footerNote: 'PERSONAL SITE · PROJECT INDEX',
+    scrollToProjects: 'SCROLL TO PROJECTS',
+    flowEyebrow: 'PROJECT DIRECTORY',
+    flowTitle: 'SCROLL DOWN FOR THE PROJECTS I AM BUILDING.',
+    flowLead: 'Learning tools, conversation archiving, and browser-native media tools. They are separate projects, and each is still being refined.',
+    flowLnk: 'CLASSICAL CHINESE STUDY AND REVIEW SCHEDULING',
+    flowSmart: 'EXPORT AI CONVERSATIONS AS LOCAL FILES',
+    flowVili: 'A BROWSER-NATIVE MEDIA DOWNLOAD TOOL',
+    viewAllProjects: 'VIEW ALL PROJECTS',
     pageBack: 'HOME',
     projectsEyebrow: 'PROJECT INDEX · 03',
     projectsTitle: 'THINGS IN PROGRESS.',
@@ -67,7 +86,16 @@ const copy = {
   },
 };
 
-let language = 'zh';
+function getStoredLanguage() {
+  try {
+    const storedLanguage = window.localStorage.getItem(languageStorageKey);
+    return storedLanguage === 'en' || storedLanguage === 'zh' ? storedLanguage : 'zh';
+  } catch {
+    return 'zh';
+  }
+}
+
+let language = getStoredLanguage();
 let pressFrame;
 let lightFrame;
 const targetLight = { x: 50, y: 46 };
@@ -76,8 +104,8 @@ const renderedLight = { x: 50, y: 46 };
 function animateLight() {
   renderedLight.x += (targetLight.x - renderedLight.x) * 0.09;
   renderedLight.y += (targetLight.y - renderedLight.y) * 0.09;
-  stage.style.setProperty('--pointer-x', `${renderedLight.x}%`);
-  stage.style.setProperty('--pointer-y', `${renderedLight.y}%`);
+  motionSurface?.style.setProperty('--pointer-x', `${renderedLight.x}%`);
+  motionSurface?.style.setProperty('--pointer-y', `${renderedLight.y}%`);
 
   if (Math.abs(targetLight.x - renderedLight.x) > 0.03 || Math.abs(targetLight.y - renderedLight.y) > 0.03) {
     lightFrame = requestAnimationFrame(animateLight);
@@ -97,11 +125,20 @@ function pressStage(event) {
   window.cancelAnimationFrame(pressFrame);
   stage.classList.remove('stage--pressed');
   pressFrame = requestAnimationFrame(() => stage.classList.add('stage--pressed'));
-  status.textContent = copy[language].pressed;
+  if (status) status.textContent = copy[language].pressed;
+}
+
+function pressPage(event) {
+  if (event.target.closest('button, a')) return;
+  window.cancelAnimationFrame(pressFrame);
+  page.classList.remove('page--pressed');
+  pressFrame = requestAnimationFrame(() => page.classList.add('page--pressed'));
+  if (status) status.textContent = copy[language].pressed;
 }
 
 function setPointerLight(event) {
-  const bounds = stage.getBoundingClientRect();
+  if (!motionSurface) return;
+  const bounds = motionSurface.getBoundingClientRect();
   const x = ((event.clientX - bounds.left) / bounds.width) * 100;
   const y = ((event.clientY - bounds.top) / bounds.height) * 100;
   targetLight.x = Math.max(0, Math.min(100, x));
@@ -109,15 +146,24 @@ function setPointerLight(event) {
   scheduleLight();
 }
 
-function switchLanguage() {
-  language = language === 'zh' ? 'en' : 'zh';
+function renderLanguage({ announce = false } = {}) {
   document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
   document.querySelectorAll('[data-i18n]').forEach((element) => {
     element.textContent = copy[language][element.dataset.i18n];
   });
-  languageSwitch.querySelector('[aria-hidden="true"]').textContent = language === 'zh' ? '中' : 'EN';
-  languageSwitch.setAttribute('aria-pressed', String(language === 'en'));
-  status.textContent = copy[language].switched;
+  languageSwitch?.querySelector('[aria-hidden="true"]').replaceChildren(language === 'zh' ? '中' : 'EN');
+  languageSwitch?.setAttribute('aria-pressed', String(language === 'en'));
+  if (announce && status) status.textContent = copy[language].switched;
+}
+
+function switchLanguage() {
+  language = language === 'zh' ? 'en' : 'zh';
+  try {
+    window.localStorage.setItem(languageStorageKey, language);
+  } catch {
+    // The page remains usable when private browsing or browser policy blocks storage.
+  }
+  renderLanguage({ announce: true });
 }
 
 if (stage) {
@@ -134,11 +180,36 @@ if (stage) {
   });
 }
 
+if (page) {
+  page.addEventListener('pointermove', setPointerLight, { passive: true });
+  page.addEventListener('pointerdown', pressPage);
+  page.addEventListener('animationend', (event) => {
+    if (event.animationName === 'page-bloom') page.classList.remove('page--pressed');
+  });
+}
+
 languageSwitch?.addEventListener('click', switchLanguage);
+renderLanguage();
+
+if ('IntersectionObserver' in window) {
+  const revealItems = document.querySelectorAll('.reveal');
+  if (revealItems.length) {
+    document.documentElement.classList.add('has-reveals');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: .14 });
+    revealItems.forEach((item) => revealObserver.observe(item));
+  }
+}
 
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
     stage?.classList.remove('stage--pressed');
+    page?.classList.remove('page--pressed');
     window.cancelAnimationFrame(lightFrame);
     lightFrame = undefined;
   }

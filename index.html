@@ -37,10 +37,51 @@
       </section>
 
       <footer class="stage__footer">
-        <p data-i18n="footerNote">个人主页 · 项目索引</p>
+        <a class="stage__scroll" href="#overview" data-i18n="scrollToProjects">向下查看项目</a>
         <p aria-hidden="true">2026</p>
       </footer>
     </main>
+
+    <section class="home-flow" id="overview" aria-labelledby="overview-title">
+      <div class="home-flow__flare" aria-hidden="true"></div>
+      <div class="home-flow__intro reveal">
+        <p class="home-flow__eyebrow" data-i18n="flowEyebrow">项目目录</p>
+        <h2 id="overview-title" data-i18n="flowTitle">向下看，是我正在做的项目。</h2>
+        <p data-i18n="flowLead">学习工具、对话归档工具和浏览器内的媒体工具，各自独立，也都还在继续完善。</p>
+      </div>
+
+      <div class="home-flow__items" aria-label="项目预览">
+        <a class="home-flow__item reveal" href="/lnk-lumen/">
+          <span class="home-flow__index">01</span>
+          <span>
+            <strong>Lnk Lumen</strong>
+            <small data-i18n="flowLnk">古诗文学习与复习排程</small>
+          </span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a class="home-flow__item reveal" href="https://github.com/ZHUOLIN0928/Smart-Export" target="_blank" rel="noreferrer">
+          <span class="home-flow__index">02</span>
+          <span>
+            <strong>Smart Export</strong>
+            <small data-i18n="flowSmart">将 AI 对话导出为本地文件</small>
+          </span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a class="home-flow__item reveal" href="https://github.com/ZHUOLIN0928/ViliDili" target="_blank" rel="noreferrer">
+          <span class="home-flow__index">03</span>
+          <span>
+            <strong>ViliDili</strong>
+            <small data-i18n="flowVili">浏览器内的媒体下载工具</small>
+          </span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <div class="home-flow__actions reveal">
+        <a href="projects/" data-i18n="viewAllProjects">查看全部项目</a>
+        <a href="contact/" data-i18n="getInTouch">联系</a>
+      </div>
+    </section>
 
     <p class="sr-only" id="stage-status" aria-live="polite"></p>
     <script src="script.js"></script>

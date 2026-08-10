@@ -1,3 +1,5 @@
+@import url("fonts/noto-serif-sc/index.css");
+
 :root {
   color-scheme: dark;
   --font-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -67,6 +69,7 @@
   --surface: rgb(255 255 255 / 6%);
   --font-display: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-reading: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-cjk: "Noto Serif SC Variable", var(--font-display);
 }
 
 [data-profile="standard"] {
@@ -91,6 +94,18 @@ body {
   background: var(--night);
   color: var(--ink);
   font-family: var(--font-display);
+}
+
+/* The personal site keeps its Latin UI typography, while Chinese editorial
+   copy uses the bundled OFL font instead of relying on an installed system
+   font. The language switch updates <html lang>, so English remains unchanged. */
+:lang(zh-CN) .hero__tagline,
+:lang(zh-CN) .hero__support,
+:lang(zh-CN) .home-flow,
+:lang(zh-CN) .project-card,
+:lang(zh-CN) .page,
+:lang(zh-CN) .contact-panel {
+  font-family: var(--font-cjk);
 }
 
 button, a { font: inherit; }

@@ -1,4 +1,9 @@
-@import url("fonts/noto-serif-sc/index.css");
+/Users/zhuolin/.zshenv:.:1: no such file or directory: /Volumes/ZHUOLIN/Project/Code/POTags/.dev/cargo/env
+/Users/zhuolin/.zshenv:.:1: no such file or directory: /Volumes/ZHUOLIN/Project/Code/POTags/.dev/cargo/env
+/* The Lnk Lumen Pages export carries the complete OFL font bundle. Reusing
+   that same-origin project asset keeps this personal site independent of
+   installed system fonts without duplicating 6 MB of split font files. */
+@import url("https://zhuolin0928.github.io/lnk-lumen/fonts/noto-serif-sc/index.css");
 
 :root {
   color-scheme: dark;

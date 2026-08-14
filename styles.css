@@ -692,6 +692,7 @@ button { cursor: pointer; }
 .project-card:nth-child(1) { animation-delay: 500ms; }
 .project-card:nth-child(2) { animation-delay: 590ms; }
 .project-card:nth-child(3) { animation-delay: 680ms; }
+.project-card:nth-child(4) { animation-delay: 770ms; }
 .project-card:hover { z-index: 1; background: #1b1a1f; transform: translateY(-.4rem) rotateX(0); }
 .project-card__copy {
   align-self: start;

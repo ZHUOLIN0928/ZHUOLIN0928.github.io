@@ -49,6 +49,14 @@ const copy = {
     contactReddit: 'Reddit',
     contactEmail: '邮箱',
     contactNote: '外部链接会在新标签页打开。',
+    verificationPending: '安全检测 · 等待验证',
+    verificationPrompt: '为防范垃圾邮件与爬虫采集，请完成下方 Cloudflare 人机验证解锁联系方式。',
+    verificationPassed: '安全检测 · 已通过验证',
+    verificationPassedDesc: '已确认访客身份，联系方式已解锁。',
+    verificationSessionPassed: '安全检测 · 会话已验证',
+    verificationSessionDesc: '已在当前会话中通过验证，联系方式保持解锁。',
+    verificationError: '验证服务暂时不可用，可点击直接解锁。',
+    verificationBypass: '直接解锁',
   },
   en: {
     statement: 'PERSONAL PROJECTS, TOOLS, AND WORK IN PROGRESS.',
@@ -93,6 +101,14 @@ const copy = {
     contactReddit: 'REDDIT',
     contactEmail: 'EMAIL',
     contactNote: 'External links open in a new tab.',
+    verificationPending: 'SECURITY CHECK · AWAITING VERIFICATION',
+    verificationPrompt: 'Please complete the Cloudflare verification below to unlock contact details.',
+    verificationPassed: 'SECURITY CHECK · VERIFIED',
+    verificationPassedDesc: 'Visitor verified. Contact details are unlocked.',
+    verificationSessionPassed: 'SECURITY CHECK · SESSION VERIFIED',
+    verificationSessionDesc: 'Verified in this session. Contact details remain unlocked.',
+    verificationError: 'Verification unavailable. Click to unlock directly.',
+    verificationBypass: 'Unlock directly',
   },
 };
 
@@ -224,3 +240,102 @@ document.addEventListener('visibilitychange', () => {
     lightFrame = undefined;
   }
 });
+
+// Cloudflare Turnstile Human Verification Logic
+const contactPanel = document.querySelector('#contact-panel');
+const verificationCard = document.querySelector('#verification-card');
+const verificationBadgeText = document.querySelector('#verification-badge-text');
+const verificationDesc = document.querySelector('#verification-desc');
+const verificationBypassBtn = document.querySelector('#verification-bypass-btn');
+const verificationStorageKey = 'zhuolin_contact_verified';
+
+function unlockContactPanel(isSession = false) {
+  if (!contactPanel) return;
+  contactPanel.classList.remove('is-locked');
+  contactPanel.classList.add('is-unlocked');
+  if (verificationCard) {
+    verificationCard.classList.add('is-verified');
+    if (verificationBadgeText) {
+      verificationBadgeText.dataset.i18n = isSession ? 'verificationSessionPassed' : 'verificationPassed';
+      verificationBadgeText.textContent = copy[language][verificationBadgeText.dataset.i18n];
+    }
+    if (verificationDesc) {
+      verificationDesc.dataset.i18n = isSession ? 'verificationSessionDesc' : 'verificationPassedDesc';
+      verificationDesc.textContent = copy[language][verificationDesc.dataset.i18n];
+    }
+  }
+  if (verificationBypassBtn) {
+    verificationBypassBtn.style.display = 'none';
+  }
+  try {
+    window.sessionStorage.setItem(verificationStorageKey, 'true');
+  } catch {
+    // Graceful handling when storage is blocked
+  }
+}
+
+window.onContactTurnstileSuccess = function (_token) {
+  unlockContactPanel(false);
+};
+
+window.onContactTurnstileExpired = function () {
+  try {
+    if (window.sessionStorage.getItem(verificationStorageKey) === 'true') return;
+  } catch {
+    // Ignore
+  }
+  if (contactPanel) {
+    contactPanel.classList.add('is-locked');
+    contactPanel.classList.remove('is-unlocked');
+  }
+  if (verificationCard) {
+    verificationCard.classList.remove('is-verified');
+    if (verificationBadgeText) {
+      verificationBadgeText.dataset.i18n = 'verificationPending';
+      verificationBadgeText.textContent = copy[language].verificationPending;
+    }
+    if (verificationDesc) {
+      verificationDesc.dataset.i18n = 'verificationPrompt';
+      verificationDesc.textContent = copy[language].verificationPrompt;
+    }
+  }
+};
+
+window.onContactTurnstileError = function () {
+  if (verificationDesc) {
+    verificationDesc.dataset.i18n = 'verificationError';
+    verificationDesc.textContent = copy[language].verificationError;
+  }
+  if (verificationBypassBtn) {
+    verificationBypassBtn.style.display = 'inline-block';
+  }
+};
+
+if (verificationBypassBtn) {
+  verificationBypassBtn.addEventListener('click', () => unlockContactPanel(false));
+}
+
+if (contactPanel) {
+  let isVerified = false;
+  try {
+    isVerified = window.sessionStorage.getItem(verificationStorageKey) === 'true';
+  } catch {
+    isVerified = false;
+  }
+
+  if (isVerified) {
+    unlockContactPanel(true);
+  } else {
+    contactPanel.classList.add('is-locked');
+    // Fallback if Turnstile script is blocked or offline
+    setTimeout(() => {
+      if (!contactPanel.classList.contains('is-unlocked') && !window.turnstile) {
+        if (verificationBypassBtn) verificationBypassBtn.style.display = 'inline-block';
+        if (verificationDesc) {
+          verificationDesc.dataset.i18n = 'verificationError';
+          verificationDesc.textContent = copy[language].verificationError;
+        }
+      }
+    }, 4500);
+  }
+}

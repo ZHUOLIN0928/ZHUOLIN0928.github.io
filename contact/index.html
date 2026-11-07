@@ -7,6 +7,7 @@
     <meta name="description" content="ZHUOLIN 的联系方式。" />
     <title>联系 · ZHUOLIN</title>
     <link rel="stylesheet" href="../styles.css" />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   </head>
   <body class="site-page">
     <main class="page" id="page">
@@ -31,7 +32,30 @@
         <p class="page__lead" data-i18n="contactLead">项目讨论、使用反馈和合作来信，都可以从这里开始。</p>
       </section>
 
-      <section class="contact-panel" aria-label="联系方式列表">
+      <section class="contact-verification" id="contact-verification" aria-label="人机安全验证">
+        <div class="verification-card" id="verification-card">
+          <div class="verification-header">
+            <span class="verification-badge" id="verification-badge">
+              <span class="verification-dot" aria-hidden="true"></span>
+              <span id="verification-badge-text" data-i18n="verificationPending">安全检测 · 等待验证</span>
+            </span>
+            <p class="verification-desc" id="verification-desc" data-i18n="verificationPrompt">为防范垃圾邮件与爬虫采集，请完成下方 Cloudflare 人机验证解锁联系方式。</p>
+          </div>
+          <div class="verification-widget" id="verification-widget">
+            <div
+              class="cf-turnstile"
+              data-sitekey="0x4AAAAAAF3H7WHOo43HdNLR"
+              data-theme="dark"
+              data-callback="onContactTurnstileSuccess"
+              data-expired-callback="onContactTurnstileExpired"
+              data-error-callback="onContactTurnstileError"
+            ></div>
+          </div>
+          <button class="verification-bypass-btn" id="verification-bypass-btn" type="button" style="display: none;" data-i18n="verificationBypass">直接解锁</button>
+        </div>
+      </section>
+
+      <section class="contact-panel is-locked" id="contact-panel" aria-label="联系方式列表">
         <a class="contact-panel__link" href="../"><span data-i18n="contactPersonal">个人主页</span><span>ZHUOLIN</span></a>
         <a class="contact-panel__link" href="https://github.com/ZHUOLIN0928" target="_blank" rel="noreferrer"><span data-i18n="contactGithub">GitHub</span><span>ZHUOLIN0928 ↗</span></a>
         <a class="contact-panel__link" href="https://x.com/ZHUOLIN0000" target="_blank" rel="noreferrer"><span data-i18n="contactX">X / Twitter</span><span>@ZHUOLIN0000 ↗</span></a>
